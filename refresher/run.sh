@@ -1,6 +1,6 @@
 #!/bin/bash
 
 while true; do
-    php mumble-sso-runner.php | tee -a mumble-sso-runner.log
+    php /data/sso/mumble/refresher/mumble-sso-runner.php | tee -a /var/log/mumble-sso-runner.log
     sleep 5
 done

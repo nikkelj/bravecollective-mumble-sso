@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="jumbotron">
-	<a href="https://wiki.braveineve.com" target="_blank"><img src="img/brave.png" class="pull-right"></a>
+	<a href="http://www.rotekapelle.com" target="_blank"><img src="img/rote.png" class="pull-right"></a>
 	<h1><?php echo $cfg_mumble_title;?></h1>
 	<br>
 	<p>

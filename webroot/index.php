@@ -40,7 +40,7 @@
 
 <!-- CONTENT -->
 
-    <div style="font-size:70%; position:fixed; bottom:1px; right:5px; z-index:23;">Brought to you by <a href="http://evewho.com/pilot/kiu+Nakamura" target="_blank">kiu Nakamura</a> / <a href="http://evewho.com/alli/Brave+Collective" target="_blank">Brave Collective</a></div>
+    <div style="font-size:70%; position:fixed; bottom:1px; right:5px; z-index:23;">Brought to you by <a href="http://evewho.com/pilot/Jalon+Kaladreel" target="_blank">Jalon Kaladreel</a> / <a href="http://evewho.com/alli/Rote+Kapelle" target="_blank">Rote Kapelle</a></div>
 
     <script src="js/bootstrap.min.js"></script>
 

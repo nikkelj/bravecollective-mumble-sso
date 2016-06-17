@@ -4,14 +4,14 @@ import os, sys, time, re
 import MySQLdb, ConfigParser
 
 import Ice
-Ice.loadSlice('/usr/share/slice/Murmur.ice')
+Ice.loadSlice('',['-I' + Ice.getSliceDir(),'/usr/share/slice/Murmur.ice'])
 # ^ Sometimes the import of ice files fail. Try enforce an include path like that:
 # Ice.loadSlice("--all -I/usr/share/Ice-3.5.1/slice/ /usr/share/slice/Murmur.ice")
 import Murmur
 
 # -------------------------------------------------------------------------------
 
-cfg = 'mumble-sso-auth.ini'
+cfg = '/data/sso/mumble/authenticator/mumble-sso-auth.ini'
 print('Reading config file: {0}').format(cfg)
 config = ConfigParser.RawConfigParser()
 config.read(cfg)

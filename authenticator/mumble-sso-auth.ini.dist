@@ -18,13 +18,13 @@ display_name = <%A>[%C] %N
 #
 # IMPORTANT: This settings needs to be in sync with config.php
 #
-restrict_access_by_ticker = 0
+restrict_access_by_ticker = 1
 
 [murmur]
 server_id = 1
 
 [mysql]
 sql_host = 127.0.0.1
-sql_user = root
-sql_pass = root
+sql_user = rote_rote
+sql_pass = P482071p
 sql_name = mumble-sso

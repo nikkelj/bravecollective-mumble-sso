@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="jumbotron">
-        <a href="https://wiki.braveineve.com" target="_blank"><img src="img/brave.png" class="pull-right"></a>
+        <a href="http://www.rotekapelle.com" target="_blank"><img src="img/rote.png" class="pull-right"></a>
         <h1>Success!</h1>
 	<p>
 	    Welcome <?php echo htmlentities($_SESSION['character_name']); ?>,<br>
@@ -12,7 +12,7 @@
 <!--	    Please make sure you have the latest stable <a href="http://wiki.mumble.info/wiki/Main_Page#Download_Mumble" target="_blank">Mumble</a> version installed. -->
 	</p>
 	<p style="font-size:80%;">
-	    After connecting to the voice server, you need to be dragged into a channel by somebody from BRAVE in order to speak. Be patient.<br>
+	    After connecting to the voice server, you need to be dragged into a channel by somebody from Rote in order to speak. Be patient.<br>
 	</p>
 	<br>
 	<br>
