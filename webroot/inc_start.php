@@ -2,11 +2,11 @@
 
 <div class="container">
     <div class="jumbotron">
-	<a href="http://www.rotekapelle.com" target="_blank"><img src="img/rote.png" class="pull-right"></a>
+	<a href="http://www.rotekapelle.com" target="_blank"><img src="img/qfc.png" class="pull-right"></a>
 	<h1><?php echo $cfg_mumble_title;?></h1>
 	<br>
 	<p>
-	    Click the button below to login through <i>EVE Online SSO</i> in order to register your in-game name on the comms server.
+	    Click the button below to login through <i>EVE Online SSO</i> in order to authenticate and join our comms server.
 	</p>
 	<br>
 

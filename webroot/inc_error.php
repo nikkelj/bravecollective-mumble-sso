@@ -10,7 +10,7 @@
 	<?php echo $cfg_url_base; ?>
 	" class="btn btn-primary btn-lg">Lets retry this!</a></p>
 	<br>
-	<span style="font-size:80%;">Reach out to <a href="http://evewho.com/pilot/kiu+Nakamura">kiu Nakamura</a> if this problem persists for a longer time.</span></p>
+	<span style="font-size:80%;">Reach out to <a href="http://evewho.com/pilot/Jalon+Kaladreel">Jalon Kaladreel</a> if this problem persists for a longer time.</span></p>
 
     </div>
 </div>

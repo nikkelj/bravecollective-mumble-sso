@@ -66,10 +66,11 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 	def authenticate(self, name, pw, certificates, certhash, cerstrong, out_newname):
 	    try:
 		db = MySQLdb.connect(sql_host, sql_user, sql_pass, sql_name)
-		sqdb = sqlite3.connect(sqlitedb)
+		#sqdb = sqlite3.connect(sqlitedb)
 # ---- Verify Params
 
 		if(not name or len(name) == 0):
+			self.logger.info("Fail: Empty Name")
 			return (-1, None, None)
 
 		self.logger.info(("Info: Trying '{0}'").format(name))
@@ -193,12 +194,12 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 		logger.info("Adding Mumble Group Privs...")
 		try:
 			#Alliance
-			c = sqdb.cursor()
-			query = "insert into group_members values ("
-			query += "(select group_id from groups where name=\'alliance-"+str(alliance_id)+"\' and channel_id=0),"
-			query += "1,"+str(character_id)+",1);"
-			c.execute(query)
-			sqdb.commit()
+			#c = sqdb.cursor()
+			#query = "insert into group_members values ("
+			#query += "(select group_id from groups where name=\'alliance-"+str(alliance_id)+"\' and channel_id=0),"
+			#query += "1,"+str(character_id)+",1);"
+			#c.execute(query)
+			#sqdb.commit()
 			
 			#Admins
 			c = db.cursor(MySQLdb.cursors.DictCursor)
@@ -208,12 +209,13 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 			c.close()
 			if rowc:
 				logger.info(character_name + " is flagged as an admin - adding to admin group.")
-				c = sqdb.cursor()
-				query = "insert into group_members values ("
-				query += "(select group_id from groups where name=\'admin\' and channel_id=0),"
-				query += "1,"+str(character_id)+",1);"
-				c.execute(query)
-				sqdb.commit()
+				groups.append("admin")
+				#c = sqdb.cursor()
+				#query = "insert into group_members values ("
+				#query += "(select group_id from groups where name=\'admin\' and channel_id=0),"
+				#query += "1,"+str(character_id)+",1);"
+				#c.execute(query)
+				#sqdb.commit()
 			#FCs
 			c = db.cursor(MySQLdb.cursors.DictCursor)
                         query = "select character_id from fc where character_id="+str(character_id)+";"
@@ -222,20 +224,21 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
                         c.close()
                         if rowc:
                                 logger.info(character_name + " is flagged as an fc - adding to fc group.")
-                                c = sqdb.cursor()
-                                query = "insert into group_members values ("
-                                query += "(select group_id from groups where name=\'fc\' and channel_id=0),"
-                                query += "1,"+str(character_id)+",1);"
-                                c.execute(query)
-                                sqdb.commit()
+                                groups.append("fc")
+				#c = sqdb.cursor()
+                                #query = "insert into group_members values ("
+                                #query += "(select group_id from groups where name=\'fc\' and channel_id=0),"
+                                #query += "1,"+str(character_id)+",1);"
+                                #c.execute(query)
+                                #sqdb.commit()
                                 
 			#CLose the sqlite db once we're done
-			sqdb.close()
+			#sqdb.close()
 			
 		except Exception as e:
 			logger.error("Problem adding Mumble Group Privs")
 			logger.error(str(e))
-		logger.info("Mumble group privs added.")
+		logger.info("Mumble group privs added: " + str(groups))
 # --- DOne
 
 		self.logger.info(("Success: '{0}' as '{1}' in {2}").format(character_id, nick, groups))

@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="jumbotron">
-        <a href="http://www.rotekapelle.com" target="_blank"><img src="img/rote.png" class="pull-right"></a>
+        <a href="http://www.rotekapelle.com" target="_blank"><img src="img/qfc.png" class="pull-right"></a>
         <h1>Success!</h1>
 	<p>
 	    Welcome <?php echo htmlentities($_SESSION['character_name']); ?>,<br>

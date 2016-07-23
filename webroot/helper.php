@@ -17,7 +17,7 @@ function sstart() {
     session_start();
 
     if (!isset($_SESSION['nonce'])) {
-	$_SESSION['nonce'] = krand(22);
+	$_SESSION['nonce'] = krand(24);
     }
 }
 
