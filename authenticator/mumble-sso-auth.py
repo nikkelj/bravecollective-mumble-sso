@@ -83,7 +83,7 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 
 		ts_min = int(time.time()) - (60 * 60 * 48)
 		c = db.cursor(MySQLdb.cursors.DictCursor)
-		c.execute("SELECT * FROM user WHERE mumble_username = %s AND updated_at > %s", (name, ts_min))
+		c.execute("SELECT * FROM mumbleadmin_user WHERE mumble_username = %s AND updated_at > %s", (name, ts_min))
 		row = c.fetchone()
 		c.close()
 		#self.logger.info("Do we get here?2")
@@ -119,7 +119,7 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 # ---- Check Bans
 		logger.info("Checking bans...")
 		c = db.cursor(MySQLdb.cursors.DictCursor)
-		query = "SELECT * FROM ban WHERE filter = \'alliance-" + str(alliance_id)+ "\'"
+		query = "SELECT * FROM mumbleadmin_ban WHERE filter = \'alliance-" + str(alliance_id)+ "\'"
 		logger.info(query)
 		c.execute(query)
 		logger.info("Query complete.")
@@ -133,7 +133,7 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 		    return (-1, None, None)
 		logger.info("Not alliance banned...")
 		c = db.cursor(MySQLdb.cursors.DictCursor)
-		query = "SELECT * FROM ban WHERE filter = \'corporation-"+str(corporation_id)+"\'"
+		query = "SELECT * FROM mumbleadmin_ban WHERE filter = \'corporation-"+str(corporation_id)+"\'"
 		c.execute(query)
 		#c.execute("SELECT * FROM ban WHERE filter = %s", ('corporation-' + str(corporation_id)))
 		row = c.fetchone()
@@ -144,7 +144,7 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 		    return (-1, None, None)
 		logger.info("Not corp banned...")
 		c = db.cursor(MySQLdb.cursors.DictCursor)
-		query = "SELECT * FROM ban WHERE filter = \'character-"+str(character_id)+"\'"
+		query = "SELECT * FROM mumbleadmin_ban WHERE filter = \'character-"+str(character_id)+"\'"
 		c.execute(query)
 		#c.execute("SELECT * FROM ban WHERE filter = %s", ('character-' + str(character_id)))
 		row = c.fetchone()
@@ -157,14 +157,14 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 # ---- Retrieve tickers
 		logger.info("Checking allowed tickers...")
 		c = db.cursor(MySQLdb.cursors.DictCursor)
-		query = "SELECT * FROM ticker WHERE filter = \'alliance-" + str(alliance_id)+ "\'"
+		query = "SELECT * FROM mumbleadmin_ticker WHERE filter = \'alliance-" + str(alliance_id)+ "\'"
 		c.execute(query)
 		#c.execute("SELECT * FROM ticker WHERE filter = %s", ('alliance-' + str(alliance_id)))
 		rowa = c.fetchone()
 		c.close()
 
 		c = db.cursor(MySQLdb.cursors.DictCursor)
-		query = "SELECT * FROM ticker WHERE filter = \'corporation-"+str(corporation_id)+"\'"
+		query = "SELECT * FROM mumbleadmin_ticker WHERE filter = \'corporation-"+str(corporation_id)+"\'"
 		c.execute(query)
 		#c.execute("SELECT * FROM ticker WHERE filter = %s", ('corporation-' + str(corporation_id)))
 		rowc = c.fetchone()
@@ -203,35 +203,69 @@ class ServerAuthenticatorI(Murmur.ServerUpdatingAuthenticator):
 			
 			#Admins
 			c = db.cursor(MySQLdb.cursors.DictCursor)
-			query = "select character_id from admin where character_id="+str(character_id)+";"
+			query = "select character_id from mumbleadmin_superuser where character_id="+str(character_id)+";"
 			c.execute(query)
 			rowc = c.fetchone()
 			c.close()
 			if rowc:
 				logger.info(character_name + " is flagged as an admin - adding to admin group.")
 				groups.append("admin")
-				#c = sqdb.cursor()
-				#query = "insert into group_members values ("
-				#query += "(select group_id from groups where name=\'admin\' and channel_id=0),"
-				#query += "1,"+str(character_id)+",1);"
-				#c.execute(query)
-				#sqdb.commit()
 			#FCs
 			c = db.cursor(MySQLdb.cursors.DictCursor)
-                        query = "select character_id from fc where character_id="+str(character_id)+";"
+                        query = "select character_id from mumbleadmin_fc where character_id="+str(character_id)+";"
                         c.execute(query)
                         rowc = c.fetchone()
                         c.close()
                         if rowc:
                                 logger.info(character_name + " is flagged as an fc - adding to fc group.")
                                 groups.append("fc")
-				#c = sqdb.cursor()
-                                #query = "insert into group_members values ("
-                                #query += "(select group_id from groups where name=\'fc\' and channel_id=0),"
-                                #query += "1,"+str(character_id)+",1);"
-                                #c.execute(query)
-                                #sqdb.commit()
-                                
+                        #Supers
+                        c = db.cursor(MySQLdb.cursors.DictCursor)
+                        query = "select character_id from mumbleadmin_ssuper where character_id="+str(character_id)+";"
+                        c.execute(query)
+                        rowc = c.fetchone()
+                        c.close()
+                        if rowc:
+                                logger.info(character_name + " is flagged as a super - adding to super group.")
+                                groups.append("super")
+			#Dreads
+                        c = db.cursor(MySQLdb.cursors.DictCursor)
+                        query = "select character_id from mumbleadmin_dread where character_id="+str(character_id)+";"
+                        c.execute(query)
+                        rowc = c.fetchone()
+                        c.close()
+                        if rowc:
+                                logger.info(character_name + " is flagged as an dread - adding to dread group.")
+                                groups.append("dread")
+			#Carriers
+                        c = db.cursor(MySQLdb.cursors.DictCursor)
+                        query = "select character_id from mumbleadmin_carrier where character_id="+str(character_id)+";"
+                        c.execute(query)
+                        rowc = c.fetchone()
+                        c.close()
+                        if rowc:
+                                logger.info(character_name + " is flagged as an carrier - adding to carrier group.")
+                                groups.append("carrier")
+			#Fax
+                        c = db.cursor(MySQLdb.cursors.DictCursor)
+                        query = "select character_id from mumbleadmin_fax where character_id="+str(character_id)+";"
+                        c.execute(query)
+                        rowc = c.fetchone()
+                        c.close()
+                        if rowc:
+                                logger.info(character_name + " is flagged as an fax - adding to fax group.")
+                                groups.append("fax")       
+
+			#RKDirector
+                        c = db.cursor(MySQLdb.cursors.DictCursor)
+                        query = "select character_id from mumbleadmin_rkdirector where character_id="+str(character_id)+";"
+                        c.execute(query)
+                        rowc = c.fetchone()
+                        c.close()
+                        if rowc:
+                                logger.info(character_name + " is flagged as an rkdirector - adding to rkdirector group.")
+                                groups.append("rkdirector")
+ 
 			#CLose the sqlite db once we're done
 			#sqdb.close()
 			
